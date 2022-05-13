@@ -22,8 +22,8 @@ export const verifyAuthToken = (req: Request, res: Response, next: NextFunction)
     //(<any>decoded).user
     req.body.user = (decoded as Decoded).user
     next()
-  } catch (error: any) {
+  } catch (error) {
     console.log(error)
-    res.status(401).send("invalid token with " + error.message as string)
+    res.status(401).send("invalid token with " + (error as { message: string }).message)
   }
 }

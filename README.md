@@ -1,3 +1,8 @@
+## Usage
+
+In order to run this, you will need a docker POSTGRESQL database image. There are
+multiple ways to install one - I used docker-compose.yml:
+
 ### Setting up the environment
 First Create the '.env' file:
 
@@ -19,10 +24,13 @@ If the `ENV` variable is set to test, the `storefront_test` database will be use
 instead of the `store` database later on.
 
 ### Setting up postgresql
-we will use docker to pull a postgresql db Image, Now all you need to do is 
-run `docker-compose up -d`
+we will use docker to pull a postgresql db Image:
+1- First make sure you have docker installed
+2- check to make sure you also have docker-compose, run in terminal `docker-compose -v` to check version
+3- Inside the project root terminal run `docker-compose up -d` to create and start the container
 after the docker-compose.yml finishes you will have a new running conatiner with postgresql DB 
-
+4- make sure .env file is set as part of it will be used to establish a connection with the docker DB image
+5- Now you are all set and ready for the next step
 ### Install the modules
 Run `npm install` or `yarn` to install all required modules.
 I prefer yarn myself
@@ -37,8 +45,8 @@ run db-migrate, run the tests and revert everything again and switch back to the
 
 #### Building
 1. Run `db-migrate up` to set up the regular database tables.
-2. Run `yarn watch` to build the server.
-3. Run `yarn start` to run the server.
+2. Run `npm run watch` to build the server.
+3. Run `npm run start` to run the server.
 
 #### Using
 The database will run on port 5000. You can access the server on localhost on

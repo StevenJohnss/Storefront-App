@@ -12,28 +12,15 @@ const {
   DB_PORT
 } = process.env
 
-let client: any
+
 console.log("my enviroment is ", NODE_ENV, typeof (NODE_ENV))
+const database = (NODE_ENV === 'test') ? POSTGRES_TEST_DB : POSTGRES_DB;
 
-if (NODE_ENV === 'dev') {
-  console.log("in here dev")
-  client = new Pool({
-    host: POSTGRES_HOST,
-    database: POSTGRES_DB,
-    user: POSTGRES_USER,
-    password: POSTGRES_PASSWORD,
-    port: (DB_PORT as unknown) as number
-  })
-}
-
-else if (NODE_ENV === 'test') {
-  console.log("in here test")
-  client = new Pool({
-    host: POSTGRES_HOST,
-    database: POSTGRES_TEST_DB,
-    user: POSTGRES_USER,
-    password: POSTGRES_PASSWORD,
-    port: (DB_PORT as unknown) as number
-  })
-}
+const client = new Pool({
+  host: POSTGRES_HOST,
+  database: database,
+  user: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
+  port: (DB_PORT as unknown) as number
+})
 export default client
