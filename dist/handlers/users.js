@@ -151,10 +151,31 @@ var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
         }
     });
 }); };
+var update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, Updated;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                user = {
+                    username: req.body.username,
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    password: req.body.password
+                };
+                return [4 /*yield*/, store.update(user)];
+            case 1:
+                Updated = _a.sent();
+                console.log("Updated");
+                res.json(Updated);
+                return [2 /*return*/];
+        }
+    });
+}); };
 var usersRoutes = function (app) {
     app.get('/users', utils_1.verifyAuthToken, index);
     app.get('/users/:id', utils_1.verifyAuthToken, show);
     app["delete"]('/users', utils_1.verifyAuthToken, destroy);
+    app.put('/users', utils_1.verifyAuthToken, update);
     app.post('/users', create);
     app.get('/users/authenticate', authenticate);
 };

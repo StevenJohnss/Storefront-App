@@ -193,10 +193,39 @@ var UserStore = /** @class */ (function () {
                             user = result.rows[0];
                             console.log("User Before Cheking Password= ", user);
                             if (bcrypt_1["default"].compareSync(password + pepper, user.password_digest)) {
+                                conn.release();
                                 return [2 /*return*/, user];
                             }
                         }
+                        conn.release();
                         return [2 /*return*/, null];
+                }
+            });
+        });
+    };
+    UserStore.prototype.update = function (u) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, hash, valArr, result, User, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = "UPDATE users SET username = $1, firstname = $2 , lastname = $3, password_digest = $4 where id = ".concat(u.id, " RETURNING *");
+                        hash = bcrypt_1["default"].hashSync(u.password + String(pepper), parseInt(saltRounds));
+                        valArr = [u.username, u.firstname, u.lastname, hash];
+                        return [4 /*yield*/, conn.query(sql, valArr)];
+                    case 2:
+                        result = _a.sent();
+                        User = result.rows[0];
+                        conn.release();
+                        return [2 /*return*/, User];
+                    case 3:
+                        error_1 = _a.sent();
+                        throw new Error("Could not run edit query on user ".concat(u.username, ": ").concat(error_1));
+                    case 4: return [2 /*return*/];
                 }
             });
         });

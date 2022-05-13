@@ -19,15 +19,16 @@ If the `ENV` variable is set to test, the `storefront_test` database will be use
 instead of the `store` database later on.
 
 ### Setting up postgresql
-we will use docker to pull a postgresql db Image, Now all you need to do is run "docker-compose up -d"
+we will use docker to pull a postgresql db Image, Now all you need to do is 
+run `docker-compose up -d`
 after the docker-compose.yml finishes you will have a new running conatiner with postgresql DB 
 
 ### Install the modules
-Run `npm run install` or `yarn` to install all required modules.
+Run `npm install` or `yarn` to install all required modules.
 I prefer yarn myself
 
 ### Run the automated tests
-Run `yarn test` to build the serer and run Jasmine tests as often as you
+Run `npm run test` or `yarn test` to build the serer and run Jasmine tests as often as you
 would like. The test will switch to the `storefront_test` database automatically,
 run db-migrate, run the tests and revert everything again and switch back to the
 `storefront_dev` database for normal use.
