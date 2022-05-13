@@ -114,11 +114,35 @@ export class UserStore {
       console.log("User Before Cheking Password= ", user)
 
       if (bcrypt.compareSync(password + pepper, user.password_digest)) {
+        conn.release()
         return user
       }
     }
-
+    conn.release()
     return null
+  }
+
+
+  async update(u: User): Promise<User> {
+    try {
+      const conn = await client.connect()
+      const sql = `UPDATE users SET username = $1, firstname = $2 , lastname = $3, password_digest = $4 where id = ${u.id} RETURNING *`
+
+      const hash = bcrypt.hashSync(
+        u.password + String(pepper),
+        parseInt(saltRounds as string)
+      );
+
+      const valArr = [u.username, u.firstname, u.lastname, hash]
+
+      const result = await conn.query(sql, valArr)
+      const User = result.rows[0]
+      conn.release()
+      return User
+    }
+    catch (error) {
+      throw new Error(`Could not run edit query on user ${u.username}: ${error}`);
+    }
   }
 
 }

@@ -52,6 +52,8 @@ You will receive a JWT that is required for accessing most other routes.
 will list all users.
 - Show: [get] http://localhost:3000/users/:id while providing authorization
 will list the information for the user with the `id`.
+- Update: [put] http://localhost:3000/api/users while providing authorization will edit the user with the id
+according to the token and set username, firstname, lastname and password as provided as parameters.
 - Delete: [delete] http://localhost:3000/users while providing,Body Parameters: `id`
 authorization will delete the user with the `id`.
 

@@ -47,17 +47,6 @@ describe("user Model", () => {
     }]);
   });
 
-  it('index method should return a list of users', async () => {
-    const result = await store.index();
-    expect(result).toEqual([{
-      id: 1,
-      username: "stev",
-      firstname: 'steven',
-      lastname: "john",
-      password_digest: result[0].password_digest
-    }]);
-  });
-
   it('show method should return the correct user', async () => {
     const result = await store.show("1");
     expect(result).toEqual({
@@ -69,7 +58,7 @@ describe("user Model", () => {
     });
   });
 
-  it('show method should return the correct user', async () => {
+  it('authenticate method should return the correct user', async () => {
     const result = await store.authenticate("stev", "111");
     expect(result).toEqual({
       id: 1,
@@ -80,11 +69,28 @@ describe("user Model", () => {
     });
   });
 
-
-  it('delete method should remove the user', async () => {
-    await store.delete("1");
-    const result = await store.index()
-
-    expect(result).toEqual([]);
+  it('update method should return the correct user', async () => {
+    const result = await store.update({
+      id: 1,
+      username: "stevenss",
+      firstname: 'steven',
+      lastname: "john",
+      password: "111"
+    });
+    expect(result).toEqual({
+      id: 1,
+      username: "stevenss",
+      firstname: 'steven',
+      lastname: "john",
+      password_digest: result?.password_digest
+    });
   });
+
+
+  // it('delete method should remove the user', async () => {
+  //   await store.delete("1");
+  //   const result = await store.index()
+
+  //   expect(result).toEqual([]);
+  // });
 });

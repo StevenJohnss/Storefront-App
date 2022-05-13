@@ -65,10 +65,23 @@ const destroy = async (req: Request, res: Response) => {
   res.json(deleted)
 }
 
+const update = async (req: Request, res: Response) => {
+  const user: User = {
+    username: req.body.username,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    password: req.body.password
+  }
+  const Updated = await store.update(user)
+  console.log("Updated")
+  res.json(Updated)
+}
+
 const usersRoutes = (app: express.Application) => {
   app.get('/users', verifyAuthToken, index)
   app.get('/users/:id', verifyAuthToken, show)
   app.delete('/users', verifyAuthToken, destroy)
+  app.put('/users', verifyAuthToken, update)
   app.post('/users', create)
   app.get('/users/authenticate', authenticate)
 }
