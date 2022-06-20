@@ -177,6 +177,6 @@ var usersRoutes = function (app) {
     app["delete"]('/users', utils_1.verifyAuthToken, destroy);
     app.put('/users', utils_1.verifyAuthToken, update);
     app.post('/users', create);
-    app.get('/users/authenticate', authenticate);
+    app.get('/users/authenticate/me', authenticate);
 };
 exports["default"] = usersRoutes;

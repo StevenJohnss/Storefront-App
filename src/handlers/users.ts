@@ -83,7 +83,7 @@ const usersRoutes = (app: express.Application) => {
   app.delete('/users', verifyAuthToken, destroy)
   app.put('/users', verifyAuthToken, update)
   app.post('/users', create)
-  app.get('/users/authenticate', authenticate)
+  app.get('/users/authenticate/me', authenticate)
 }
 
 export default usersRoutes
