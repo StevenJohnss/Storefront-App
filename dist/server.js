@@ -9,8 +9,11 @@ var cors_1 = __importDefault(require("cors"));
 var users_1 = __importDefault(require("./handlers/users"));
 var orders_route_1 = __importDefault(require("./handlers/orders_route"));
 var products_route_1 = __importDefault(require("./handlers/products_route"));
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1["default"].config();
 var app = (0, express_1["default"])();
 var address = "localhost:3000";
+var PORT = process.env.PORT || 3000;
 var corsOptions = {
     origin: 'http://someotherdomain.com',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various
@@ -24,7 +27,7 @@ app.get('/', function (req, res) {
 (0, users_1["default"])(app);
 (0, orders_route_1["default"])(app);
 (0, products_route_1["default"])(app);
-app.listen(3000, function () {
+app.listen(PORT, function () {
     console.log("starting app on: ".concat(address));
 });
 exports["default"] = app;

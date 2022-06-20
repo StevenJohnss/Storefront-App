@@ -4,10 +4,12 @@ import cors from "cors"
 import usersRoutes from "./handlers/users"
 import orderRoutes from "./handlers/orders_route"
 import productsRoutes from "./handlers/products_route"
-
+import dotenv from "dotenv"
+dotenv.config()
 
 const app: express.Application = express()
 const address: string = "localhost:3000"
+const PORT = process.env.PORT || 3000
 
 const corsOptions = {
     origin: 'http://someotherdomain.com',
@@ -23,7 +25,7 @@ app.get('/', function (req: Request, res: Response) {
 usersRoutes(app)
 orderRoutes(app)
 productsRoutes(app)
-app.listen(3000, function () {
+app.listen(PORT, function () {
     console.log(`starting app on: ${address}`)
 })
 
