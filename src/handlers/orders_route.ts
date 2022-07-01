@@ -60,12 +60,23 @@ const userCurrentOrder = async (_req: Request, res: Response) => {
     res.json(err)
   }
 }
+const orderUserInvoice = async (_req: Request, res: Response) => {
+  const order_id: string = _req.params.order_id
+  try {
+    const orderUserInvoice = await store.orderUserInvoice(order_id)
+    res.json(orderUserInvoice)
+  } catch (err) {
+    res.status(400)
+    res.json(err)
+  }
+}
 
 
 const bookRoutes = (app: express.Application) => {
   app.get('/orders', verifyAuthToken, index)
   app.get('/orders/:id', verifyAuthToken, show)
   app.get('/orders/users/:user_id', verifyAuthToken, userCurrentOrder)
+  app.get('/orders/invoice/:order_id', verifyAuthToken, orderUserInvoice)
   app.post('/orders', verifyAuthToken, create)
   app.delete('/orders', verifyAuthToken, destroy)
   // add product

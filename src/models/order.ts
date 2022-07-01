@@ -130,4 +130,27 @@ export class OrderStore {
     }
   }
 
+  async orderUserInvoice(id: string): Promise<{
+    username: string, status: string, name: string, quantity: number
+  }[]> {
+    try {
+      //@ts-ignore
+      const conn = await client.connect()
+      const sql = ` select u.username, o.status, pr.name, op.quantity 
+      from public.order_products op 
+      inner join public.products pr on op.product_id = pr.id
+      inner join public.orders o on op.order_id = o.id
+      inner join public.users u ON o.user_id =u.id
+      where op.order_id= ${id}`
+
+      const result = await conn.query(sql)
+
+      conn.release()
+
+      return result.rows
+    } catch (err) {
+      throw new Error(`unable get users with orders: ${err}`)
+    }
+  }
+
 }
