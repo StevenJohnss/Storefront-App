@@ -25,14 +25,13 @@ instead of the `store` database later on.
 
 ### Setting up postgresql
 we will use docker to pull a postgresql db Image:
-
-1- First make sure you have docker installed
-2- check to make sure you also have docker-compose, run in terminal `docker-compose -v` to check version
-3- Inside the project root terminal run `docker-compose up -d` to create and start the container,
+1. First make sure you have docker installed
+2. check to make sure you also have docker-compose, run in terminal `docker-compose -v` to check version
+3. Inside the project root terminal run `docker-compose up -d` to create and start the container,
 the docker-compose.yml contains the docker image: "postgres", then the environment variables requierd,
 POSTGRES_PASSWORD: "postgres", POSTGRES_USER: "postgres" and the dev DB we want to create POSTGRES_DB: "storefront_dev". after its done you will have a new running conatiner with postgresql DB 
-4- make sure .env file is set as part of it will be used to establish a connection with the docker DB image
-5- Now you are all set and ready for the next step
+4. make sure .env file is set as part of it will be used to establish a connection with the docker DB image
+5. Now you are all set and ready for the next step
 
 ### Install the modules
 Run `npm install` or `yarn` to install all required modules.
